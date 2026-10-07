@@ -91,7 +91,7 @@ fun CheckoutScreen(
                 ) {
                     Column(modifier = Modifier.padding(16.dp)) {
                         Text(
-                            text = "1. Datos del Cliente (Caja de Texto)",
+                            text = "1. Datos del Cliente",
                             fontWeight = FontWeight.Bold,
                             color = MaterialTheme.colorScheme.primary
                         )
@@ -160,7 +160,7 @@ fun CheckoutScreen(
                 ) {
                     Column(modifier = Modifier.padding(16.dp)) {
                         Text(
-                            text = "3. Método de Pago (Radios)",
+                            text = "3. Método de Pago ",
                             fontWeight = FontWeight.Bold,
                             color = MaterialTheme.colorScheme.primary
                         )
@@ -194,7 +194,7 @@ fun CheckoutScreen(
                 ) {
                     Column(modifier = Modifier.padding(16.dp)) {
                         Text(
-                            text = "4. Opciones Adicionales (Checks)",
+                            text = "4. Opciones Adicionales",
                             fontWeight = FontWeight.Bold,
                             color = MaterialTheme.colorScheme.primary
                         )
@@ -245,7 +245,7 @@ fun CheckoutScreen(
 
                         // TimePicker
                         Text(
-                            text = "5. Hora de Entrega (TimePicker funcional)",
+                            text = "5. Hora de Entrega ",
                             fontWeight = FontWeight.Bold,
                             color = MaterialTheme.colorScheme.primary
                         )
