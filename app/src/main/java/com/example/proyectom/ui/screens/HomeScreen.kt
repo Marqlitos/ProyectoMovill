@@ -21,20 +21,12 @@ fun HomeScreen(
     onNavigateToCatalog: () -> Unit,
     onNavigateToCheckout: () -> Unit,
     onNavigateToHistory: () -> Unit,
-    onSettingsClick: () -> Unit
+    onNavigateToSettings: () -> Unit
 ) {
     Scaffold(
         topBar = {
             TopAppBar(
-                title = { Text("Tianguis Morongato", fontWeight = FontWeight.Bold) },
-                actions = {
-                  IconButton(onClick = onSettingsClick){
-                      Icon(
-                          imageVector = Icons.Default.Settings,
-                          contentDescription = "Cambiar idioma"
-                      )
-                  }
-                },
+                title = { Text("Sistema de Ventas Móvil", fontWeight = FontWeight.Bold) },
                 colors = TopAppBarDefaults.topAppBarColors(
                     containerColor = MaterialTheme.colorScheme.primaryContainer,
                     titleContentColor = MaterialTheme.colorScheme.onPrimaryContainer
@@ -63,31 +55,40 @@ fun HomeScreen(
                 color = MaterialTheme.colorScheme.onSurfaceVariant
             )
 
-            Spacer(modifier = Modifier.height(36.dp))
+            Spacer(modifier = Modifier.height(24.dp))
 
             MenuCard(
                 title = "Catálogo de Productos",
-                description = "¡Explora lo que las personas estan vendiendo!",
+                description = "Explorar lista de productos y agregar al carrito",
                 icon = Icons.Default.Store,
                 onClick = onNavigateToCatalog
             )
 
-            Spacer(modifier = Modifier.height(16.dp))
+            Spacer(modifier = Modifier.height(12.dp))
 
             MenuCard(
-                title = "Nueva Venta",
-                description = "¿Quieres vender algo?",
+                title = "Nueva Venta (Checkout)",
+                description = "Textos, Radios, Checks, TimePicker y Pedido",
                 icon = Icons.Default.ShoppingCart,
                 onClick = onNavigateToCheckout
             )
 
-            Spacer(modifier = Modifier.height(16.dp))
+            Spacer(modifier = Modifier.height(12.dp))
 
             MenuCard(
                 title = "Historial de Ventas",
-                description = "Mira tu lista de ventas realizadas",
+                description = "Ver lista de ventas realizadas",
                 icon = Icons.Default.List,
                 onClick = onNavigateToHistory
+            )
+
+            Spacer(modifier = Modifier.height(12.dp))
+
+            MenuCard(
+                title = "Configuración",
+                description = "Alternar modo oscuro / claro general",
+                icon = Icons.Default.Settings,
+                onClick = onNavigateToSettings
             )
         }
     }
@@ -109,13 +110,13 @@ fun MenuCard(
         Row(
             modifier = Modifier
                 .fillMaxWidth()
-                .padding(16.dp),
+                .padding(14.dp),
             verticalAlignment = Alignment.CenterVertically
         ) {
             Icon(
                 imageVector = icon,
                 contentDescription = null,
-                modifier = Modifier.size(40.dp),
+                modifier = Modifier.size(36.dp),
                 tint = MaterialTheme.colorScheme.primary
             )
             Spacer(modifier = Modifier.width(16.dp))
@@ -123,10 +124,10 @@ fun MenuCard(
                 Text(
                     text = title,
                     fontWeight = FontWeight.Bold,
-                    fontSize = 16.sp,
+                    fontSize = 15.sp,
                     color = MaterialTheme.colorScheme.onSurface
                 )
-                Spacer(modifier = Modifier.height(4.dp))
+                Spacer(modifier = Modifier.height(2.dp))
                 Text(
                     text = description,
                     fontSize = 12.sp,

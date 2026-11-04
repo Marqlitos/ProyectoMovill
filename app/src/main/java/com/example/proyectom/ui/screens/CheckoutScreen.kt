@@ -63,7 +63,7 @@ fun CheckoutScreen(
     Scaffold(
         topBar = {
             TopAppBar(
-                title = { Text("Nueva Venta / Checkout") },
+                title = { Text("WishList / Checkout") },
                 navigationIcon = {
                     IconButton(onClick = onNavigateBack) {
                         Icon(Icons.AutoMirrored.Filled.ArrowBack, contentDescription = "Regresar")
@@ -166,7 +166,7 @@ fun CheckoutScreen(
                         )
                         Spacer(modifier = Modifier.height(8.dp))
 
-                        val paymentOptions = listOf("Efectivo", "Tarjeta de Crédito", "Transferencia")
+                        val paymentOptions = listOf("Efectivo", "Tarjeta de Crédito", "Transferencia","Pago a en acuerdo con el vendedor")
                         paymentOptions.forEach { option ->
                             Row(
                                 modifier = Modifier
@@ -236,7 +236,7 @@ fun CheckoutScreen(
                                 onCheckedChange = { viewModel.toggleTaxInvoice(it) }
                             )
                             Spacer(modifier = Modifier.width(8.dp))
-                            Text(text = "Requiere Factura Fiscal", modifier = Modifier.weight(1f))
+                            Text(text = "Entrega a acordar con el vendedor", modifier = Modifier.weight(1f))
                         }
 
                         Spacer(modifier = Modifier.height(16.dp))

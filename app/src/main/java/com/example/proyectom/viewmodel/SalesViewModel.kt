@@ -21,7 +21,8 @@ class SalesViewModel : ViewModel() {
             Product("2", "Laptop Hp", 1400.00, "Computación", "Vendo laptop por falta de uso"),
             Product("3", "Vestido casual", 300.00, "Ropa", "Vendo bonito vestido, muy comdo, no menos..."),
             Product("4", "Nintendo Switch", 2000.00, "Computación", "Vendo nintendo switch con magia, o cambio por algo de mi agrado"),
-            Product("5", "Cafetera Express", 1750.00, "Hogar", "Cafetera de 15 bares de presión con vaporizador")
+            Product("5", "Cafetera Express", 1750.00, "Hogar", "Vendo bonita cafetera express, Solo para conocedores, No menos")
+
         )
     )
     val products: StateFlow<List<Product>> = _products.asStateFlow()
@@ -59,6 +60,49 @@ class SalesViewModel : ViewModel() {
     // UI Feedback state
     private val _lastCreatedOrder = MutableStateFlow<Order?>(null)
     val lastCreatedOrder: StateFlow<Order?> = _lastCreatedOrder.asStateFlow()
+
+    // Dark Mode state
+    private val _isDarkMode = MutableStateFlow(false)
+    val isDarkMode: StateFlow<Boolean> = _isDarkMode.asStateFlow()
+
+    fun toggleDarkMode(enabled: Boolean) {
+        _isDarkMode.value = enabled
+    }
+
+    // Additional Settings states
+    private val _selectedLanguage = MutableStateFlow("Español")
+    val selectedLanguage: StateFlow<String> = _selectedLanguage.asStateFlow()
+
+    private val _notificationsEnabled = MutableStateFlow(true)
+    val notificationsEnabled: StateFlow<Boolean> = _notificationsEnabled.asStateFlow()
+
+    private val _countryCity = MutableStateFlow("México / CDMX")
+    val countryCity: StateFlow<String> = _countryCity.asStateFlow()
+
+    fun setLanguage(language: String) {
+        _selectedLanguage.value = language
+    }
+
+    fun setNotificationsEnabled(enabled: Boolean) {
+        _notificationsEnabled.value = enabled
+    }
+
+    fun setCountryCity(location: String) {
+        _countryCity.value = location
+    }
+
+    fun addProductToCatalog(name: String, price: Double, category: String, description: String): Boolean {
+        if (name.isBlank() || price <= 0.0) return false
+        val newProduct = Product(
+            id = "PROD-${System.currentTimeMillis().toString().takeLast(5)}",
+            name = name.trim(),
+            price = price,
+            category = if (category.isBlank()) "General" else category.trim(),
+            description = description.trim()
+        )
+        _products.update { listOf(newProduct) + it }
+        return true
+    }
 
     // Methods for Cart
     fun addToCart(product: Product) {

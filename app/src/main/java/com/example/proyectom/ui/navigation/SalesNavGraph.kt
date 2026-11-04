@@ -5,16 +5,17 @@ import androidx.lifecycle.viewmodel.compose.viewModel
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
+import com.example.proyectom.ui.screens.AddProductScreen
 import com.example.proyectom.ui.screens.CatalogScreen
 import com.example.proyectom.ui.screens.CheckoutScreen
 import com.example.proyectom.ui.screens.HistoryScreen
 import com.example.proyectom.ui.screens.HomeScreen
+import com.example.proyectom.ui.screens.SettingsScreen
 import com.example.proyectom.viewmodel.SalesViewModel
 
 @Composable
-fun SalesNavGraph() {
+fun SalesNavGraph(salesViewModel: SalesViewModel = viewModel()) {
     val navController = rememberNavController()
-    val salesViewModel: SalesViewModel = viewModel()
 
     NavHost(
         navController = navController,
@@ -25,14 +26,21 @@ fun SalesNavGraph() {
                 onNavigateToCatalog = { navController.navigate("catalog") },
                 onNavigateToCheckout = { navController.navigate("checkout") },
                 onNavigateToHistory = { navController.navigate("history") },
-                onSettingsClick = { navController.navigate("Settings") }
+                onNavigateToSettings = { navController.navigate("settings") }
             )
         }
         composable("catalog") {
             CatalogScreen(
                 viewModel = salesViewModel,
                 onNavigateBack = { navController.popBackStack() },
-                onNavigateToCheckout = { navController.navigate("checkout") }
+                onNavigateToCheckout = { navController.navigate("checkout") },
+                onNavigateToAddProduct = { navController.navigate("addProduct") }
+            )
+        }
+        composable("addProduct") {
+            AddProductScreen(
+                viewModel = salesViewModel,
+                onNavigateBack = { navController.popBackStack() }
             )
         }
         composable("checkout") {
@@ -48,15 +56,11 @@ fun SalesNavGraph() {
                 onNavigateBack = { navController.popBackStack() }
             )
         }
-        composable ("Settings") {
-            SettingsScreeen(
-
+        composable("settings") {
+            SettingsScreen(
+                viewModel = salesViewModel,
+                onNavigateBack = { navController.popBackStack() }
             )
         }
     }
-}
-
-@Composable
-fun SettingsScreeen() {
-    TODO("Not yet implemented")
 }
