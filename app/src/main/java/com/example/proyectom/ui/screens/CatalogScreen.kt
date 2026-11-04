@@ -1,11 +1,13 @@
 package com.example.proyectom.ui.screens
 
+import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.items
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.automirrored.filled.ArrowBack
 import androidx.compose.material.icons.filled.Add
+import androidx.compose.material.icons.filled.Edit
 import androidx.compose.material.icons.filled.ShoppingCart
 import androidx.compose.material3.*
 import androidx.compose.runtime.Composable
@@ -26,7 +28,8 @@ fun CatalogScreen(
     viewModel: SalesViewModel,
     onNavigateBack: () -> Unit,
     onNavigateToCheckout: () -> Unit,
-    onNavigateToAddProduct: () -> Unit
+    onNavigateToAddProduct: () -> Unit,
+    onNavigateToEditProduct: (String) -> Unit
 ) {
     val products by viewModel.products.collectAsState()
     val cartItems by viewModel.cartItems.collectAsState()
@@ -79,7 +82,7 @@ fun CatalogScreen(
         ) {
             item {
                 Text(
-                    text = "Seleccione productos para agregar a su venta:",
+                    text = "Seleccione productos para agregar o presione ✏️ para editar/borrar su publicación:",
                     style = MaterialTheme.typography.bodyMedium,
                     color = MaterialTheme.colorScheme.onSurfaceVariant
                 )
@@ -89,7 +92,8 @@ fun CatalogScreen(
             items(products) { product ->
                 ProductItemCard(
                     product = product,
-                    onAddToCart = { viewModel.addToCart(product) }
+                    onAddToCart = { viewModel.addToCart(product) },
+                    onEditClick = { onNavigateToEditProduct(product.id) }
                 )
             }
         }
@@ -99,10 +103,13 @@ fun CatalogScreen(
 @Composable
 fun ProductItemCard(
     product: Product,
-    onAddToCart: () -> Unit
+    onAddToCart: () -> Unit,
+    onEditClick: () -> Unit
 ) {
     Card(
-        modifier = Modifier.fillMaxWidth(),
+        modifier = Modifier
+            .fillMaxWidth()
+            .clickable(onClick = onEditClick),
         elevation = CardDefaults.cardElevation(defaultElevation = 2.dp),
         colors = CardDefaults.cardColors(containerColor = MaterialTheme.colorScheme.surface)
     ) {
@@ -114,11 +121,25 @@ fun ProductItemCard(
             verticalAlignment = Alignment.CenterVertically
         ) {
             Column(modifier = Modifier.weight(1f)) {
-                Text(
-                    text = product.name,
-                    fontWeight = FontWeight.Bold,
-                    fontSize = 16.sp
-                )
+                Row(verticalAlignment = Alignment.CenterVertically) {
+                    Text(
+                        text = product.name,
+                        fontWeight = FontWeight.Bold,
+                        fontSize = 16.sp
+                    )
+                    Spacer(modifier = Modifier.width(6.dp))
+                    IconButton(
+                        onClick = onEditClick,
+                        modifier = Modifier.size(24.dp)
+                    ) {
+                        Icon(
+                            imageVector = Icons.Default.Edit,
+                            contentDescription = "Editar",
+                            tint = MaterialTheme.colorScheme.primary,
+                            modifier = Modifier.size(16.dp)
+                        )
+                    }
+                }
                 Spacer(modifier = Modifier.height(2.dp))
                 Text(
                     text = product.description.ifBlank { "Categoría: ${product.category}" },

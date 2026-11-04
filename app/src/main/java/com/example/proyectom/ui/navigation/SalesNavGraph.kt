@@ -8,6 +8,7 @@ import androidx.navigation.compose.rememberNavController
 import com.example.proyectom.ui.screens.AddProductScreen
 import com.example.proyectom.ui.screens.CatalogScreen
 import com.example.proyectom.ui.screens.CheckoutScreen
+import com.example.proyectom.ui.screens.EditProductScreen
 import com.example.proyectom.ui.screens.HistoryScreen
 import com.example.proyectom.ui.screens.HomeScreen
 import com.example.proyectom.ui.screens.SettingsScreen
@@ -34,11 +35,20 @@ fun SalesNavGraph(salesViewModel: SalesViewModel = viewModel()) {
                 viewModel = salesViewModel,
                 onNavigateBack = { navController.popBackStack() },
                 onNavigateToCheckout = { navController.navigate("checkout") },
-                onNavigateToAddProduct = { navController.navigate("addProduct") }
+                onNavigateToAddProduct = { navController.navigate("addProduct") },
+                onNavigateToEditProduct = { productId -> navController.navigate("editProduct/$productId") }
             )
         }
         composable("addProduct") {
             AddProductScreen(
+                viewModel = salesViewModel,
+                onNavigateBack = { navController.popBackStack() }
+            )
+        }
+        composable("editProduct/{productId}") { backStackEntry ->
+            val productId = backStackEntry.arguments?.getString("productId") ?: ""
+            EditProductScreen(
+                productId = productId,
                 viewModel = salesViewModel,
                 onNavigateBack = { navController.popBackStack() }
             )

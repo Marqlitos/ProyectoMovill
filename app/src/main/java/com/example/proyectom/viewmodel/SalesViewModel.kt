@@ -104,6 +104,21 @@ class SalesViewModel : ViewModel() {
         return true
     }
 
+    fun updateProduct(product: Product) {
+        _products.update { currentList ->
+            currentList.map { if (it.id == product.id) product else it }
+        }
+    }
+
+    fun deleteProduct(productId: String) {
+        _products.update { currentList ->
+            currentList.filter { it.id != productId }
+        }
+        _cartItems.update { currentCart ->
+            currentCart.filter { it.product.id != productId }
+        }
+    }
+
     // Methods for Cart
     fun addToCart(product: Product) {
         _cartItems.update { currentList ->
