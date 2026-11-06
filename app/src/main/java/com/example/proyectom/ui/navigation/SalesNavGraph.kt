@@ -11,11 +11,16 @@ import com.example.proyectom.ui.screens.CheckoutScreen
 import com.example.proyectom.ui.screens.EditProductScreen
 import com.example.proyectom.ui.screens.HistoryScreen
 import com.example.proyectom.ui.screens.HomeScreen
+import com.example.proyectom.ui.screens.ProfileScreen
 import com.example.proyectom.ui.screens.SettingsScreen
+import com.example.proyectom.viewmodel.AuthViewModel
 import com.example.proyectom.viewmodel.SalesViewModel
 
 @Composable
-fun SalesNavGraph(salesViewModel: SalesViewModel = viewModel()) {
+fun SalesNavGraph(
+    salesViewModel: SalesViewModel = viewModel(),
+    authViewModel: AuthViewModel = viewModel()
+) {
     val navController = rememberNavController()
 
     NavHost(
@@ -27,7 +32,15 @@ fun SalesNavGraph(salesViewModel: SalesViewModel = viewModel()) {
                 onNavigateToCatalog = { navController.navigate("catalog") },
                 onNavigateToCheckout = { navController.navigate("checkout") },
                 onNavigateToHistory = { navController.navigate("history") },
-                onNavigateToSettings = { navController.navigate("settings") }
+                onNavigateToSettings = { navController.navigate("settings") },
+                onNavigateToProfile = { navController.navigate("profile") }
+            )
+        }
+        composable("profile") {
+            ProfileScreen(
+                authViewModel = authViewModel,
+                onNavigateBack = { navController.popBackStack() },
+                onLogoutSuccess = { navController.popBackStack() }
             )
         }
         composable("catalog") {
