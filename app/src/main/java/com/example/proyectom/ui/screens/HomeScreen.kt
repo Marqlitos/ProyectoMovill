@@ -1,12 +1,30 @@
 package com.example.proyectom.ui.screens
 
-import androidx.compose.foundation.layout.*
+import androidx.compose.foundation.layout.Arrangement
+import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.Row
+import androidx.compose.foundation.layout.Spacer
+import androidx.compose.foundation.layout.fillMaxSize
+import androidx.compose.foundation.layout.fillMaxWidth
+import androidx.compose.foundation.layout.height
+import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.layout.size
+import androidx.compose.foundation.layout.width
 import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.filled.AccountCircle
 import androidx.compose.material.icons.filled.List
 import androidx.compose.material.icons.filled.Settings
 import androidx.compose.material.icons.filled.ShoppingCart
 import androidx.compose.material.icons.filled.Store
-import androidx.compose.material3.*
+import androidx.compose.material3.Card
+import androidx.compose.material3.CardDefaults
+import androidx.compose.material3.ExperimentalMaterial3Api
+import androidx.compose.material3.Icon
+import androidx.compose.material3.MaterialTheme
+import androidx.compose.material3.Scaffold
+import androidx.compose.material3.Text
+import androidx.compose.material3.TopAppBar
+import androidx.compose.material3.TopAppBarDefaults
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
@@ -21,12 +39,13 @@ fun HomeScreen(
     onNavigateToCatalog: () -> Unit,
     onNavigateToCheckout: () -> Unit,
     onNavigateToHistory: () -> Unit,
-    onNavigateToSettings: () -> Unit
+    onNavigateToSettings: () -> Unit,
+    onNavigateToProfile: () -> Unit
 ) {
     Scaffold(
         topBar = {
             TopAppBar(
-                title = { Text("Sistema de Ventas Móvil", fontWeight = FontWeight.Bold) },
+                title = { Text("ITSURTIDITO", fontWeight = FontWeight.Bold) },
                 colors = TopAppBarDefaults.topAppBarColors(
                     containerColor = MaterialTheme.colorScheme.primaryContainer,
                     titleContentColor = MaterialTheme.colorScheme.onPrimaryContainer
@@ -50,7 +69,7 @@ fun HomeScreen(
             )
             Spacer(modifier = Modifier.height(8.dp))
             Text(
-                text = "Seleccione una opción del menú para continuar",
+                text = "Selecciona una opción del menú para continuar",
                 style = MaterialTheme.typography.bodyMedium,
                 color = MaterialTheme.colorScheme.onSurfaceVariant
             )
@@ -58,8 +77,17 @@ fun HomeScreen(
             Spacer(modifier = Modifier.height(24.dp))
 
             MenuCard(
+                title = "Mi Perfil",
+                description = "Consultar datos, foto de perfil y cerrar sesión",
+                icon = Icons.Default.AccountCircle,
+                onClick = onNavigateToProfile
+            )
+
+            Spacer(modifier = Modifier.height(12.dp))
+
+            MenuCard(
                 title = "Catálogo de Productos",
-                description = "Explorar lista de productos y agregar al carrito",
+                description = "Explora las ofertas y productos que te pueden interesar",
                 icon = Icons.Default.Store,
                 onClick = onNavigateToCatalog
             )
@@ -67,8 +95,8 @@ fun HomeScreen(
             Spacer(modifier = Modifier.height(12.dp))
 
             MenuCard(
-                title = "Nueva Venta (Checkout)",
-                description = "Textos, Radios, Checks, TimePicker y Pedido",
+                title = "Continuar con la compra (Checkout)",
+                description = "Continua con la compra de tus productos guardados en tu carrito",
                 icon = Icons.Default.ShoppingCart,
                 onClick = onNavigateToCheckout
             )
@@ -77,7 +105,7 @@ fun HomeScreen(
 
             MenuCard(
                 title = "Historial de Ventas",
-                description = "Ver lista de ventas realizadas",
+                description = "Ver lista de tus ventas realizadas",
                 icon = Icons.Default.List,
                 onClick = onNavigateToHistory
             )

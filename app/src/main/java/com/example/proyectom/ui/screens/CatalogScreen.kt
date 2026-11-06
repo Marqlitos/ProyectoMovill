@@ -33,7 +33,9 @@ fun CatalogScreen(
 ) {
     val products by viewModel.products.collectAsState()
     val cartItems by viewModel.cartItems.collectAsState()
-    val totalItemsCount = cartItems.sumOf { it.quantity }
+    val totalItemsCount = cartItems.sumOf {
+        it.quantity
+    }
 
     Scaffold(
         topBar = {

@@ -63,7 +63,7 @@ fun AddProductScreen(
             OutlinedTextField(
                 value = name,
                 onValueChange = { name = it },
-                label = { Text("Nombre del Producto *") },
+                label = { Text("Nombre del Producto ") },
                 modifier = Modifier.fillMaxWidth(),
                 singleLine = true
             )
@@ -71,7 +71,7 @@ fun AddProductScreen(
             OutlinedTextField(
                 value = priceStr,
                 onValueChange = { priceStr = it },
-                label = { Text("Precio ($) *") },
+                label = { Text("Precio ($) ") },
                 modifier = Modifier.fillMaxWidth(),
                 keyboardOptions = KeyboardOptions(keyboardType = KeyboardType.Number),
                 singleLine = true

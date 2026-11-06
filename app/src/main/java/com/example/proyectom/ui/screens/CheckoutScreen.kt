@@ -53,7 +53,6 @@ fun CheckoutScreen(
         false
     )
 
-    // Check if order was successfully submitted
     LaunchedEffect(lastCreatedOrder) {
         if (lastCreatedOrder != null) {
             showSuccessDialog = true
@@ -83,7 +82,7 @@ fun CheckoutScreen(
                 .padding(16.dp),
             verticalArrangement = Arrangement.spacedBy(16.dp)
         ) {
-            // 1. Cajas de Texto (TextField)
+
             item {
                 Card(
                     modifier = Modifier.fillMaxWidth(),
@@ -107,7 +106,6 @@ fun CheckoutScreen(
                 }
             }
 
-            // 2. Listas (Cart Items)
             item {
                 Card(
                     modifier = Modifier.fillMaxWidth(),
@@ -152,7 +150,6 @@ fun CheckoutScreen(
                 }
             }
 
-            // 3. Radios (Payment Methods)
             item {
                 Card(
                     modifier = Modifier.fillMaxWidth(),
@@ -186,7 +183,6 @@ fun CheckoutScreen(
                 }
             }
 
-            // 4. Checks (Checkboxes) & TimePicker
             item {
                 Card(
                     modifier = Modifier.fillMaxWidth(),
@@ -200,7 +196,6 @@ fun CheckoutScreen(
                         )
                         Spacer(modifier = Modifier.height(8.dp))
 
-                        // Check 1
                         Row(
                             modifier = Modifier.fillMaxWidth(),
                             verticalAlignment = Alignment.CenterVertically
@@ -210,10 +205,9 @@ fun CheckoutScreen(
                                 onCheckedChange = { viewModel.toggleExpressDelivery(it) }
                             )
                             Spacer(modifier = Modifier.width(8.dp))
-                            Text(text = "Envío Exprés (+$10.00)", modifier = Modifier.weight(1f))
+                            Text(text = "Envío Exprés (+$50.00)", modifier = Modifier.weight(1f))
                         }
 
-                        // Check 2
                         Row(
                             modifier = Modifier.fillMaxWidth(),
                             verticalAlignment = Alignment.CenterVertically
@@ -223,10 +217,9 @@ fun CheckoutScreen(
                                 onCheckedChange = { viewModel.toggleGiftWrap(it) }
                             )
                             Spacer(modifier = Modifier.width(8.dp))
-                            Text(text = "Empaquetado para Regalo (+$3.00)", modifier = Modifier.weight(1f))
+                            Text(text = "Empaquetado para Regalo (+$20.00)", modifier = Modifier.weight(1f))
                         }
 
-                        // Check 3
                         Row(
                             modifier = Modifier.fillMaxWidth(),
                             verticalAlignment = Alignment.CenterVertically
@@ -243,7 +236,6 @@ fun CheckoutScreen(
                         HorizontalDivider()
                         Spacer(modifier = Modifier.height(16.dp))
 
-                        // TimePicker
                         Text(
                             text = "5. Hora de Entrega ",
                             fontWeight = FontWeight.Bold,
@@ -268,7 +260,6 @@ fun CheckoutScreen(
                 }
             }
 
-            // Summary & Submit Button
             item {
                 Card(
                     modifier = Modifier.fillMaxWidth(),
@@ -320,7 +311,6 @@ fun CheckoutScreen(
         }
     }
 
-    // Success Dialog
     if (showSuccessDialog && lastCreatedOrder != null) {
         AlertDialog(
             onDismissRequest = {

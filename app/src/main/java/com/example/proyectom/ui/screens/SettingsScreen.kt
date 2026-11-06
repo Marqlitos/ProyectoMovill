@@ -63,7 +63,6 @@ fun SettingsScreen(
                 )
             }
 
-            // 1. Dark Mode Setting
             item {
                 Card(
                     modifier = Modifier.fillMaxWidth(),
@@ -109,7 +108,6 @@ fun SettingsScreen(
                 }
             }
 
-            // 2. Language Setting
             item {
                 Card(
                     modifier = Modifier.fillMaxWidth(),
@@ -181,7 +179,6 @@ fun SettingsScreen(
                 }
             }
 
-            // 3. Notifications Setting
             item {
                 Card(
                     modifier = Modifier.fillMaxWidth(),
@@ -213,7 +210,7 @@ fun SettingsScreen(
                                 )
                                 Spacer(modifier = Modifier.height(2.dp))
                                 Text(
-                                    text = if (notificationsEnabled) "Recibir alertas y ofertas" else "Notificaciones silenciadas",
+                                    text = if (notificationsEnabled) "Recibe alertas y ofertas de productos de tu interés" else "Notificaciones silenciadas",
                                     fontSize = 12.sp,
                                     color = MaterialTheme.colorScheme.onSurfaceVariant
                                 )
@@ -227,7 +224,6 @@ fun SettingsScreen(
                 }
             }
 
-            // 4. Country / City Setting
             item {
                 Card(
                     modifier = Modifier.fillMaxWidth(),
