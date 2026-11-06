@@ -11,7 +11,9 @@ import com.example.proyectom.ui.screens.CheckoutScreen
 import com.example.proyectom.ui.screens.EditProductScreen
 import com.example.proyectom.ui.screens.HistoryScreen
 import com.example.proyectom.ui.screens.HomeScreen
+import com.example.proyectom.ui.screens.LoginScreen
 import com.example.proyectom.ui.screens.ProfileScreen
+import com.example.proyectom.ui.screens.RegisterScreen
 import com.example.proyectom.ui.screens.SettingsScreen
 import com.example.proyectom.viewmodel.AuthViewModel
 import com.example.proyectom.viewmodel.SalesViewModel
@@ -33,14 +35,49 @@ fun SalesNavGraph(
                 onNavigateToCheckout = { navController.navigate("checkout") },
                 onNavigateToHistory = { navController.navigate("history") },
                 onNavigateToSettings = { navController.navigate("settings") },
-                onNavigateToProfile = { navController.navigate("profile") }
+                onNavigateToProfile = {
+                    if (authViewModel.uiState.value.isAuthenticated) {
+                        navController.navigate("profile")
+                    } else {
+                        navController.navigate("login")
+                    }
+                }
+            )
+        }
+        composable("login") {
+            LoginScreen(
+                authViewModel = authViewModel,
+                onNavigateBack = { navController.popBackStack() },
+                onNavigateToRegister = { navController.navigate("register") },
+                onAuthSuccess = {
+                    navController.navigate("profile") {
+                        popUpTo("home") { inclusive = false }
+                    }
+                }
+            )
+        }
+        composable("register") {
+            RegisterScreen(
+                authViewModel = authViewModel,
+                onNavigateBack = { navController.popBackStack() },
+                onNavigateToLogin = { navController.popBackStack() },
+                onRegisterSuccess = {
+                    navController.navigate("profile") {
+                        popUpTo("home") { inclusive = false }
+                    }
+                }
             )
         }
         composable("profile") {
             ProfileScreen(
                 authViewModel = authViewModel,
                 onNavigateBack = { navController.popBackStack() },
-                onLogoutSuccess = { navController.popBackStack() }
+                onNavigateToLogin = { navController.navigate("login") },
+                onLogoutSuccess = {
+                    navController.navigate("login") {
+                        popUpTo("home") { inclusive = false }
+                    }
+                }
             )
         }
         composable("catalog") {

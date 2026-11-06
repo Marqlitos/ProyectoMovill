@@ -45,7 +45,7 @@ fun HomeScreen(
     Scaffold(
         topBar = {
             TopAppBar(
-                title = { Text("Sistema de Ventas Móvil", fontWeight = FontWeight.Bold) },
+                title = { Text("ITSURTIDITO", fontWeight = FontWeight.Bold) },
                 colors = TopAppBarDefaults.topAppBarColors(
                     containerColor = MaterialTheme.colorScheme.primaryContainer,
                     titleContentColor = MaterialTheme.colorScheme.onPrimaryContainer
@@ -69,7 +69,7 @@ fun HomeScreen(
             )
             Spacer(modifier = Modifier.height(8.dp))
             Text(
-                text = "Seleccione una opción del menú para continuar",
+                text = "Selecciona una opción del menú para continuar",
                 style = MaterialTheme.typography.bodyMedium,
                 color = MaterialTheme.colorScheme.onSurfaceVariant
             )
@@ -87,7 +87,7 @@ fun HomeScreen(
 
             MenuCard(
                 title = "Catálogo de Productos",
-                description = "Explorar lista de productos y agregar al carrito",
+                description = "Explora las ofertas y productos que te pueden interesar",
                 icon = Icons.Default.Store,
                 onClick = onNavigateToCatalog
             )
@@ -95,8 +95,8 @@ fun HomeScreen(
             Spacer(modifier = Modifier.height(12.dp))
 
             MenuCard(
-                title = "Nueva Venta (Checkout)",
-                description = "Textos, Radios, Checks, TimePicker y Pedido",
+                title = "Continuar con la compra (Checkout)",
+                description = "Continua con la compra de tus productos guardados en tu carrito",
                 icon = Icons.Default.ShoppingCart,
                 onClick = onNavigateToCheckout
             )
@@ -105,7 +105,7 @@ fun HomeScreen(
 
             MenuCard(
                 title = "Historial de Ventas",
-                description = "Ver lista de ventas realizadas",
+                description = "Ver lista de tus ventas realizadas",
                 icon = Icons.Default.List,
                 onClick = onNavigateToHistory
             )

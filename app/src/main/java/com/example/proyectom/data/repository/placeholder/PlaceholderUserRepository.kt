@@ -13,6 +13,18 @@ class PlaceholderUserRepository : UserRepository {
     private val users = mutableMapOf<String, Pair<UserProfile, String>>()
     private var currentUserId: String? = null
 
+    init {
+        val demoUser = UserProfile(
+            id = "USR-0000001",
+            fullName = "Usuario Demo",
+            email = "demo@ITSURTIDITO.com",
+            age = 25,
+            phone = "4611234567",
+            profileImagePath = null
+        )
+        users[demoUser.id] = demoUser to "123456"
+    }
+
     override suspend fun registerUser(
         fullName: String,
         email: String,
