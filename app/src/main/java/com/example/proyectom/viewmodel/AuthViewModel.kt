@@ -2,8 +2,8 @@ package com.example.proyectom.viewmodel
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
+import com.example.proyectom.data.repository.FirebaseUserRepository
 import com.example.proyectom.data.repository.UserRepository
-import com.example.proyectom.data.repository.placeholder.PlaceholderUserRepository
 import com.example.proyectom.model.AuthUiState
 import com.example.proyectom.model.RegisterRequest
 import kotlinx.coroutines.flow.MutableStateFlow
@@ -13,7 +13,7 @@ import kotlinx.coroutines.flow.update
 import kotlinx.coroutines.launch
 
 class AuthViewModel(
-    private val userRepository: UserRepository = PlaceholderUserRepository()
+    private val userRepository: UserRepository = FirebaseUserRepository()
 ) : ViewModel() {
 
     private val _uiState = MutableStateFlow(AuthUiState())

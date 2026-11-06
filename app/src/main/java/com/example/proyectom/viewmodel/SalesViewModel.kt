@@ -1,6 +1,9 @@
 package com.example.proyectom.viewmodel
 
 import androidx.lifecycle.ViewModel
+import androidx.lifecycle.viewModelScope
+import com.example.proyectom.data.repository.FirebaseProductRepository
+import com.example.proyectom.data.repository.ProductRepository
 import com.example.proyectom.model.CartItem
 import com.example.proyectom.model.Order
 import com.example.proyectom.model.Product
@@ -8,11 +11,14 @@ import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.asStateFlow
 import kotlinx.coroutines.flow.update
+import kotlinx.coroutines.launch
 import java.text.SimpleDateFormat
 import java.util.Date
 import java.util.Locale
 
-class SalesViewModel : ViewModel() {
+class SalesViewModel(
+    private val productRepository: ProductRepository = FirebaseProductRepository()
+) : ViewModel() {
 
     // Catalog Products
     private val _products = MutableStateFlow(
@@ -26,6 +32,20 @@ class SalesViewModel : ViewModel() {
         )
     )
     val products: StateFlow<List<Product>> = _products.asStateFlow()
+
+    init {
+        viewModelScope.launch {
+            productRepository.observeProducts().collect { remoteProducts ->
+                if (remoteProducts.isNotEmpty()) {
+                    _products.value = remoteProducts
+                } else {
+                    _products.value.forEach { product ->
+                        productRepository.createProduct(product)
+                    }
+                }
+            }
+        }
+    }
 
     // Cart Items
     private val _cartItems = MutableStateFlow<List<CartItem>>(emptyList())
@@ -101,12 +121,18 @@ class SalesViewModel : ViewModel() {
             description = description.trim()
         )
         _products.update { listOf(newProduct) + it }
+        viewModelScope.launch {
+            productRepository.createProduct(newProduct)
+        }
         return true
     }
 
     fun updateProduct(product: Product) {
         _products.update { currentList ->
             currentList.map { if (it.id == product.id) product else it }
+        }
+        viewModelScope.launch {
+            productRepository.updateProduct(product)
         }
     }
 
@@ -116,6 +142,9 @@ class SalesViewModel : ViewModel() {
         }
         _cartItems.update { currentCart ->
             currentCart.filter { it.product.id != productId }
+        }
+        viewModelScope.launch {
+            productRepository.deleteProduct(productId)
         }
     }
 

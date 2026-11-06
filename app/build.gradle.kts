@@ -1,6 +1,8 @@
 plugins {
     alias(libs.plugins.android.application)
     alias(libs.plugins.kotlin.compose)
+
+    //Firebase
     id("com.google.gms.google-services")
 }
 
@@ -56,7 +58,9 @@ dependencies {
     debugImplementation(libs.androidx.compose.ui.test.manifest)
     debugImplementation(libs.androidx.compose.ui.tooling)
 
-    // Firebase BoM y Realtime Database
+    //Firebase
     implementation(platform("com.google.firebase:firebase-bom:33.9.0"))
     implementation("com.google.firebase:firebase-database")
+    implementation("com.google.firebase:firebase-auth")
+    implementation("org.jetbrains.kotlinx:kotlinx-coroutines-play-services:1.10.1")
 }

@@ -14,6 +14,10 @@ class PlaceholderProductRepository : ProductRepository {
         return productMemoryStore.toList()
     }
 
+    override fun observeProducts(): kotlinx.coroutines.flow.Flow<List<Product>> {
+        return kotlinx.coroutines.flow.flowOf(productMemoryStore.toList())
+    }
+
     override suspend fun createProduct(product: Product): Result<Product> {
         delay(120)
         productMemoryStore.add(product)

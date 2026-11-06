@@ -4,11 +4,11 @@ package com.example.proyectom.model
  * Modelo de usuario autenticado en la app.
  */
 data class UserProfile(
-    val id: String,
-    val fullName: String,
-    val email: String,
-    val age: Int,
-    val phone: String,
+    val id: String = "",
+    val fullName: String = "",
+    val email: String = "",
+    val age: Int = 0,
+    val phone: String = "",
     val profileImagePath: String? = null
 )
 
